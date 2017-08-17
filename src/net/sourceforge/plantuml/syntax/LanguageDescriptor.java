@@ -89,6 +89,7 @@ public class LanguageDescriptor {
 		keyword.add("as");
 		keyword.add("also");
 		keyword.add("autonumber");
+		keyword.add("subnumber");
 		keyword.add("caption");
 		keyword.add("title");
 		keyword.add("newpage");
