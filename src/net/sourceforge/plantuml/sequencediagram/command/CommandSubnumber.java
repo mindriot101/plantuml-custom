@@ -8,12 +8,17 @@ import net.sourceforge.plantuml.sequencediagram.SequenceDiagram;
 
 public class CommandSubnumber extends SingleLineCommand<SequenceDiagram> {
 	public CommandSubnumber() {
-		super("(?i)^subnumber.*$");
+		super("(?i)^subnumber[%s]*(\\d+)?[%s]*$");
 	}
 
 	@Override
 	protected CommandExecutionResult executeArg(SequenceDiagram sequenceDiagram, List<String> arg) {
-		sequenceDiagram.subnumberGo();
+		int topNumber = 1;
+		if (arg.get(0) != null) {
+			topNumber = Integer.parseInt(arg.get(0));
+		}
+
+		sequenceDiagram.subnumberGo(topNumber);
 		return CommandExecutionResult.ok();
 	}
 }

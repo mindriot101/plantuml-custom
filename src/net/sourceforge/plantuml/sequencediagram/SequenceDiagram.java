@@ -354,13 +354,35 @@ public class SequenceDiagram extends UmlDiagram {
 		}
 	}
 
+	private boolean subnumber = false;
+	private int messageTopNumber;
+	private int messageSubNumber;
+
+	public final void subnumberGo(int messageTopNumber) {
+		this.subnumber = true;
+		this.messageTopNumber = messageTopNumber;
+		this.messageSubNumber = 1;
+	}
+
+	public final void subnumberStop() {
+		this.subnumber = false;
+	}
+
 	public String getNextMessageNumber() {
-		if (autonumber == false) {
+		if (autonumber == false && subnumber == false) {
 			return null;
 		}
-		final int result = messageNumber;
-		messageNumber += incrementMessageNumber;
-		return decimalFormat.format(result);
+
+		if (autonumber) {
+			final int result = messageNumber;
+			messageNumber += incrementMessageNumber;
+			return decimalFormat.format(result);
+		} else {
+			final int topNumber = messageTopNumber;
+			final int subNumber = messageSubNumber;
+			messageSubNumber += 1;
+			return String.format("%d.%d", topNumber, subNumber);
+		}
 	}
 
 	public boolean isShowFootbox() {
